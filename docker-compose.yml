@@ -1,7 +1,32 @@
-version: '2'
+version: '3.1'
 services:
+  odoo12:
+    image: odoo:12
+    user: root
+    depends_on:
+      - db
+    ports:
+      - "8069:8069"
+      - "8072:8072" # live chat
+    tty: true
+    # command: --
+    # command: odoo scaffold /mnt/extra-addons/test_module
+    command: sleep infinity
+    environment:
+      - HOST=db
+      - USER=odoo
+      - PASSWORD=odoo
+    volumes:
+      #- /etc/timezone:/etc/timezone:ro
+      #- /etc/localtime:/etc/localtime:ro
+      - ./entrypoint.sh:/entrypoint.sh   # if you want to install additional Python packages, uncomment this line!
+      - ./addons:/usr/lib/python3/dist-packages/odoo/extra-addons
+      - ./etc:/etc/odoo
+    # restart: always             # run as a service
+    networks:
+      - odoo-net
   db:
-    image: postgres:9.5
+    image: postgres:13
     user: root
     environment:
       - POSTGRES_PASSWORD=odoo
@@ -10,26 +35,21 @@ services:
     restart: always             # run as a service
     volumes:
       - ./postgresql:/var/lib/postgresql/data
-
-  odoo12:
-    image: odoo:12
+    networks:
+      - odoo-net
+  pgadmin4:
     user: root
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=pgadmin@pgadmin.org
+      - PGADMIN_DEFAULT_PASSWORD=admin@2022
+    ports:
+      - "5050:80"
     depends_on:
       - db
-    ports:
-      - "10012:8069"
-      - "20012:8072" # live chat
-    tty: true
-    command: --
-#    command: odoo scaffold /mnt/extra-addons/test_module
-    environment:
-      - HOST=db
-      - USER=odoo
-      - PASSWORD=odoo
-    volumes:
-      #- /etc/timezone:/etc/timezone:ro
-      #- /etc/localtime:/etc/localtime:ro
-      # - ./entrypoint.sh:/entrypoint.sh   # if you want to install additional Python packages, uncomment this line!
-      - ./addons:/mnt/extra-addons
-      - ./etc:/etc/odoo
-    restart: always             # run as a service
+    restart: unless-stopped
+    networks:
+      - odoo-net
+networks:
+  odoo-net:
+    driver: bridge

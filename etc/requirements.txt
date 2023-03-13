@@ -6,3 +6,31 @@
 # then down the docker container ($ docker-compose down) and up it again ($ docker-compose up -d).
 # -----------------------
 # paramiko==2.7.2 # for auto_backup module
+
+# Python 3 compatibility
+configparser==3.5.0
+future==0.16.0
+# Needed for OpenUpgrade
+odoorpc==0.6.0
+openupgradelib
+# libs for fiscal document signature emission - DO NOT CHANGE THE VERSION!
+cryptography==3.4.8
+signxml==2.9.0
+pyOpenSSL==20.0.1
+# libs for fiscal document signature emission - DO NOT CHANGE THE VERSION!
+num2words==0.5.4
+pycep-correios==5.0.0
+workalendar
+erpbrasil.base==2.2.2
+erpbrasil.assinatura==1.5.0
+erpbrasil.transmissao==1.0.0
+erpbrasil.edoc==2.2.1
+erpbrasil.edoc.pdf==1.0.1
+nfselib.ginfes==0.2.0
+nfselib.issnet==0.2.0
+nfselib.paulistana==0.2.0
+nfelib==1.2.0
+xmldiff==2.4
+lxml==4.6.5
+openupgradelib
+febraban

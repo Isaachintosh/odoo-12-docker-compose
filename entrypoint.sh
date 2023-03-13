@@ -9,8 +9,21 @@ set -e
 : ${USER:=${DB_ENV_POSTGRES_USER:=${POSTGRES_USER:='odoo'}}}
 : ${PASSWORD:=${DB_ENV_POSTGRES_PASSWORD:=${POSTGRES_PASSWORD:='odoo'}}}
 
+# verify and install new python version for odoo 12 br fiscal dependencies
+python3 --version
+apt-get update && apt-get upgrade -y
+
+apt-get install dbus-user-session -y
+apt-get update && apt-get upgrade -y
+
+apt-get install software-properties-common -y && apt-get update
+
+add-apt-repository ppa:deadsnakes/ppa -y
+apt-get update && apt-get upgrade -y
+
+apt-get install python3.7 -y
 # install python packages
-pip3 install pip --upgrade
+pip3 install --upgrade pip wheel 'setuptools==58.0.0'
 pip3 install -r /etc/odoo/requirements.txt
 
 # sed -i 's|raise werkzeug.exceptions.BadRequest(msg)|self.jsonrequest = {}|g' /usr/lib/python3/dist-packages/odoo/http.py
