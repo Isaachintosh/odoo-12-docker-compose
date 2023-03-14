@@ -1,0 +1,21 @@
+sphinx-rtd-theme
+email_validator
+phonenumbers
+pycep_correios
+vcrpy
+workalendar
+xmldiff
+# libs for fiscal document signature emission - DO NOT CHANGE THE VERSION!
+cryptography==3.4.8
+signxml==2.9.0
+pyOpenSSL==20.0.1
+erpbrasil.assinatura==1.5.0
+pytrustnfe3
+# libs for fiscal document signature emission - DO NOT CHANGE THE VERSION!
+erpbrasil.base==2.3.0
+erpbrasil.edoc==2.2.1
+erpbrasil.edoc.pdf==1.1.0
+erpbrasil.transmissao==1.0.0
+nfelib==1.3.0
+formio-data==0.4.7
+pyfcm
