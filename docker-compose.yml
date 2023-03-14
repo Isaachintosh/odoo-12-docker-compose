@@ -1,7 +1,7 @@
 version: '3.1'
 services:
   odoo12:
-    image: odoo:12
+    # image: odoo:12
     user: root
     depends_on:
       - db
@@ -9,6 +9,7 @@ services:
       - "8069:8069"
       - "8072:8072" # live chat
     tty: true
+    build: .
     # command: --
     # command: odoo scaffold /mnt/extra-addons/test_module
     command: sleep infinity
